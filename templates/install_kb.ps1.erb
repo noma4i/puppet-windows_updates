@@ -1,1 +1,2 @@
+Import-Module PSWindowsUpdate
 Get-WUInstall -KBArticleID <%= scope.lookupvar('windows_updates::kb') %> -AcceptAll

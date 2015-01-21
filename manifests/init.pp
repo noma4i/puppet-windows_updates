@@ -4,18 +4,18 @@ class windows_updates (
 ){
   case $ensure {
     'enabled', 'present': {
-      exec { 'Install PSModule to manage Windows Updates':
-        command  => template('windows_updates/install_psupdates.ps1.erb'),
-        provider => 'powershell',
-        onlyif   => 'if ((Test-Path -Path "C:\Windows\System32\WindowsPowerShell\v1.0\Modules\PSWindowsUpdate") -eq $False) { exit 0 } else { exit 1 }',
-        timeout  => 600
+      file { 'C:\Windows\System32\WindowsPowerShell\v1.0\Modules\PSWindowsUpdate':
+        ensure             => directory,
+        recurse            => true,
+        source_permissions => ignore,
+        source             => 'puppet:///modules/windows_updates'
       }
-      # ->
-      # exec { "Install ${kb}":
-      #   command  => template('windows_updates/install_kb.ps1.erb'),
-      #   provider => 'powershell',
-      #   timeout  => 600
-      # }
+      ->
+      exec { "Install ${kb}":
+        command  => template('windows_updates/install_kb.ps1.erb'),
+        provider => 'powershell',
+        timeout  => 1200
+      }
     }
     default: {
       fail('Invalid ensure option!\n')
