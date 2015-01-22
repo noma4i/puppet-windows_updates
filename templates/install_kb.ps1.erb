@@ -1,2 +1,2 @@
-Get-WUInstall -KBArticleID "<%= @kb %>" -AcceptAll
+Get-WUInstall -KBArticleID "<%= @kb %>" -AcceptAll -AutoReboot
 Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed"
