@@ -1,15 +1,11 @@
-class windows_updates::name (
+define windows_updates::list (
   $ensure   = 'enabled',
   $name = undef
 ){
-  include windows_updates::setup
+  require windows_updates
+
   case $ensure {
     'enabled', 'present': {
-      file { 'C:\\ProgramData\\InstalledUpdates':
-        ensure             => directory,
-        recurse            => true,
-        source_permissions => ignore
-      }->
       exec { "Install Updates By Name ${update_name}":
         command  => template('windows_updates/install_by_name.ps1.erb'),
         provider => 'powershell',
