@@ -1,7 +1,2 @@
-Import-Module PSWindowsUpdate
-$item = get-wmiobject -class win32_quickfixengineering | Where-Object {$_.HotFixID -eq <%= scope.lookupvar('windows_updates::kb') %>} | select -exp HotFixID
-if ($item -eq "<%= scope.lookupvar('windows_updates::kb') %>"){
-  exit 0
-} else {
-  Get-WUInstall -KBArticleID <%= scope.lookupvar('windows_updates::kb') %> -AcceptAll
-}
+Get-WUInstall -KBArticleID "<%= scope.lookupvar('windows_updates::kb') %>" -AcceptAll
+Set-Content "C:\ProgramData\InstalledUpdates\<%= scope.lookupvar('windows_updates::kb') %>.flg" "Installed"
