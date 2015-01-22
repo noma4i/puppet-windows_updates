@@ -13,7 +13,7 @@ class windows_updates::name (
       exec { "Install Updates By Name ${update_name}":
         command  => template('windows_updates/install_by_name.ps1.erb'),
         provider => 'powershell',
-        timeout  => 1200
+        timeout  => 14400
       }
     }
     default: {
