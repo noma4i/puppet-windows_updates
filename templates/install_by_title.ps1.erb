@@ -1,4 +1,4 @@
-Get-WUInstall -Title "<%= @name %>" -WhatIf -Verbose | foreach {
+Get-WUInstall -Title "<%= scope.lookupvar('windows_updates::list::name') %>" -WhatIf -Verbose | foreach {
   if ((Test-Path "c:\ProgramData\InstalledUpdates\$($_.KB).flg") -eq $False){
     Get-WUInstall -KBArticleID "$($_.KB)" -AcceptAll
     Set-Content "c:\ProgramData\InstalledUpdates\$($_.KB).flg" "Installed"
