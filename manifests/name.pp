@@ -2,7 +2,7 @@ class windows_updates::name (
   $ensure   = 'enabled',
   $kb = undef
 ){
-  include windows_updates
+  include windows_updates::setup
   case $ensure {
     'enabled', 'present': {
       file { 'C:\\ProgramData\\InstalledUpdates':
