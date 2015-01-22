@@ -7,7 +7,7 @@ define windows_updates::list (
   case $ensure {
     'enabled', 'present': {
       exec { "Install Updates By Name ${update_name}":
-        command  => template('windows_updates/install_by_name.ps1.erb'),
+        command  => template('windows_updates/install_by_title.ps1.erb'),
         provider => 'powershell',
         timeout  => 14400
       }
