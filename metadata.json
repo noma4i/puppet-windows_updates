@@ -2,7 +2,7 @@
   "name": "noma4i-windows_updates",
   "version": "0.2.0",
   "author": "noma4i",
-  "summary": "Install Tableau Server",
+  "summary": "Manage Windows Updates by KBArticleID or Name exact/partial match",
   "license": "Apache-2.0",
   "source": "https://github.com/noma4i/puppet-windows_updates",
   "project_page": "https://github.com/noma4i/puppet-windows_updates",
