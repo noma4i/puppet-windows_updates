@@ -1,6 +1,6 @@
 class windows_updates::name (
   $ensure   = 'enabled',
-  $kb = undef
+  $name = undef
 ){
   include windows_updates::setup
   case $ensure {

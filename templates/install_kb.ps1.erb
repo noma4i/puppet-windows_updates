@@ -1,2 +1,2 @@
-Get-WUInstall -KBArticleID "<%= scope.lookupvar('windows_updates::kb') %>" -AcceptAll
-Set-Content "C:\ProgramData\InstalledUpdates\<%= scope.lookupvar('windows_updates::kb') %>.flg" "Installed"
+Get-WUInstall -KBArticleID "<%= @kb %>" -AcceptAll
+Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed"
