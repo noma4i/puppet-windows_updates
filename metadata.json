@@ -1,6 +1,6 @@
 {
   "name": "noma4i-windows_updates",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "noma4i",
   "summary": "Manage Windows Updates by KBArticleID or Name exact/partial match",
   "license": "Apache-2.0",
