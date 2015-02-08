@@ -34,7 +34,7 @@ If you are not sure what updates go with name you defined - use `dry_run` option
 
 In this case your `what_will_be_installed.txt` will look like:
 
-```
+```csv
   ComputerName Status KB          Size Title
   ------------ ------ --          ---- -----
   WIN-H7VQ4... ------ KB2931358 322 KB Security Update for Microsoft .NET Frame...
