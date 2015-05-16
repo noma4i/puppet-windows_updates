@@ -1,6 +1,6 @@
 # windows_updates
 
-Puppet module to install selected windows updates or mask of updated etc.
+Puppet module to install selected windows updates or mask of updates etc.
 
 #### How to use
 
@@ -22,7 +22,7 @@ Install Updates by name or mask. Will install all updates matching `.Net*` mask
   }
 ````
 
-If you are not sure what updates go with name you defined - use `dry_run` option and point it to output file.
+If you are not sure what updates go with name you set - use `dry_run` option and point it to output file.
 
 ```puppet
   windows_updates::list {'.Net Updates':
