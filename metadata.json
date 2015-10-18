@@ -29,8 +29,5 @@
         "8"
       ]
     }
-  ],
-  "dependencies": [
-    {"name":"joshcooper/powershell","version_requirement":">= 0.0.5 <5.0.0"}
   ]
 }
