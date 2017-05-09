@@ -2,6 +2,10 @@
 
 Puppet module to install selected windows updates or mask of updates etc.
 
+#### Cavets
+
+You may need to use `puppet module install --ignore-dependencies` as powershell may present in your modules
+
 #### How to use
 
 Install specific update by KB number.
