@@ -18,7 +18,7 @@ Install Updates by name or mask. Will install all updates matching `.Net*` mask
 ```puppet
   windows_updates::list {'.Net Updates':
     ensure => 'present',
-    name => '.Net*'
+    name_mask => '.Net*'
   }
 ````
 
@@ -28,7 +28,7 @@ If you are not sure what updates go with name you set - use `dry_run` option and
   windows_updates::list {'.Net Updates':
     ensure => 'present',
     dry_run => 'C:\\what_will_be_installed.txt'
-    name => '.Net*'
+    name_mask => '.Net*'
   }
 ````
 
