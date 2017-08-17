@@ -46,3 +46,12 @@ In this case your `what_will_be_installed.txt` will look like:
   WIN-H7VQ4... ------ KB2961851  15 MB Security Update for Internet Explorer 11...
   WIN-H7VQ4... ------ KB2934520  72 MB Microsoft .NET Framework 4.5.2 for Windo...
 ```
+
+Install an update from within a WinRM remote session. Because wusa.exe cannot be used over WinRM directly, and `Invoke-WUInstall.ps1` works around this by scheduling a task to actually install the update.
+
+```puppet
+  windows_updates::invoke_remote {'Some cool KB!':
+    ensure => 'present',
+    kb => 'KB3012199'
+  }
+```
