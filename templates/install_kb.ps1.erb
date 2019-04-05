@@ -1,2 +1,2 @@
-Get-WUInstall -KBArticleID "<%= @kb %>" -AcceptAll -AutoReboot
+Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot
 Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed"
