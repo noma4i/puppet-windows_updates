@@ -1,32 +1,24 @@
 {
-  "name": "noma4i-windows_updates",
-  "version": "0.2.2",
-  "author": "noma4i",
+  "name": "kreeuwijk-windows_updates",
+  "version": "0.3.0",
+  "author": "kreeuwijk",
   "summary": "Manage Windows Updates by KBArticleID or Name exact/partial match",
   "license": "Apache-2.0",
-  "source": "https://github.com/noma4i/puppet-windows_updates",
-  "project_page": "https://github.com/noma4i/puppet-windows_updates",
-  "issues_url": "https://github.com/noma4i/puppet-windows_updates/issues",
+  "source": "https://github.com/kreeuwijk/puppet-windows_updates",
+  "project_page": "https://github.com/kreeuwijk/puppet-windows_updates",
+  "issues_url": "https://github.com/kreeuwijk/puppet-windows_updates/issues",
   "requirements": [
     {
-      "name": "pe",
-      "version_requirement": "3.x"
-    },
-    {
       "name": "puppet",
-      "version_requirement": ">= 3.3.0 < 4.0.0"
+      "version_requirement": ">= 4.7.0 < 7.0.0"
     }
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "Windows",
       "operatingsystemrelease": [
-        "Server 2008",
-        "Server 2008 R2",
-        "Server 2012",
-        "Server 2012 R2",
-        "7",
-        "8"
+        "2012 R2",
+        "2016",
       ]
     }
   ],
