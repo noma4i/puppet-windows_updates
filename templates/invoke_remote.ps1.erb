@@ -1,5 +1,5 @@
 Invoke-WUInstall -Script {
   Import-Module "PSWindowsUpdate"
-  Get-WUInstall -KBArticleID "<%= @kb %>" -AcceptAll -AutoReboot | Out-File C:\PSWindowsUpdate.log
+  Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot | Out-File C:\PSWindowsUpdate.log
   Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed"
 }
