@@ -1,1 +1,1 @@
-Install-WindowsUpdate -Title "<%= @name_mask %>" -WhatIf -Verbose | foreach { if ((Test-Path "c:\ProgramData\InstalledUpdates\$($_.KB).flg") -eq $False){ Install-WindowsUpdate -KBArticleID "$($_.KB)" -AcceptAll -IgnoreReboot; Set-Content "c:\ProgramData\InstalledUpdates\$($_.KB).flg" "Installed";}}
+Get-WindowsUpdate -Title "<%= @name_mask %>" | foreach { if ((Test-Path "c:\ProgramData\InstalledUpdates\$($_.KB).flg") -eq $False){ Install-WindowsUpdate -KBArticleID "$($_.KB)" -AcceptAll -IgnoreReboot; Set-Content "c:\ProgramData\InstalledUpdates\$($_.KB).flg" "Installed";}}
