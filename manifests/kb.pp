@@ -1,6 +1,7 @@
 define windows_updates::kb (
-  $ensure = 'enabled',
-  $kb     = $name
+  $ensure   = 'enabled',
+  $kb       = $name,
+  $schedule = undef
 ){
   require windows_updates
 
@@ -10,7 +11,8 @@ define windows_updates::kb (
         command  => template('windows_updates/install_kb.ps1.erb'),
         creates  => "C:\\ProgramData\\InstalledUpdates\\${kb}.flg",
         provider => 'powershell',
-        timeout  => 1800
+        timeout  => 1800,
+        schedule => $schedule
       }
     }
     default: {
