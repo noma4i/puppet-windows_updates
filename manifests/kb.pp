@@ -1,7 +1,7 @@
 define windows_updates::kb (
-  $ensure   = 'enabled',
-  $kb       = $name,
-  $schedule = undef
+  $ensure      = 'enabled',
+  $kb          = $name,
+  $maintwindow = undef
 ){
   require windows_updates
 
@@ -12,7 +12,7 @@ define windows_updates::kb (
         creates  => "C:\\ProgramData\\InstalledUpdates\\${kb}.flg",
         provider => 'powershell',
         timeout  => 1800,
-        schedule => $schedule
+        schedule => $maintwindow
       }
     }
     default: {
