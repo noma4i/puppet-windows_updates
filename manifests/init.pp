@@ -1,5 +1,5 @@
 class windows_updates() {
-  file { 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules\\PSWindowsUpdate':
+  file { 'C:\\Program Files\\WindowsPowerShell\\Modules\\PSWindowsUpdate':
     ensure             => directory,
     recurse            => true,
     source_permissions => ignore,
