@@ -1,1 +1,1 @@
-Get-WUInstall -Title "<%= @name_mask %>" -ListOnly | Out-File <%= @dry_run %>
+Get-WindowsUpdate -Title "<%= @name_mask %>" | Out-File <%= @dry_run %>
