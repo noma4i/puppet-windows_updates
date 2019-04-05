@@ -1,6 +1,6 @@
 define windows_updates::kb (
-  $ensure   = 'enabled',
-  $kb = undef
+  $ensure = 'enabled',
+  $kb     = $name
 ){
   require windows_updates
 
