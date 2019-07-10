@@ -1,6 +1,6 @@
-$result = Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot -ErrorAction SilentlyContinue
-switch ( $result[0].Result ) {
-    'Installed' { Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed" }
+Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot -ErrorAction SilentlyContinue
+switch ( (Get-WUHistory | ? KB -eq <%= @kb %>).Result ) {
+    'Succeeded' { Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed" }
     'Failed'    { Write-Output "Error installing <%= @kb %>!"; Exit 1 }
-    ''          { Write-Output "Update <%= @kb %> is not provided by the update server!"; Exit 1 }
+    ''          { Write-Output "Update <%= @kb %> is not provided by the update server!"; Exit 2 }
 }
