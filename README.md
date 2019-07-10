@@ -11,7 +11,13 @@ You may need to use `puppet module install --ignore-dependencies` as powershell 
 Install specific update by KB number.
 
 ```puppet
-  windows_updates::kb {'Some cool KB!':
+  windows_updates::kb {'KB3012199':
+    ensure => 'present'
+  }
+````
+ or
+```puppet
+  windows_updates::kb {'Some custom description':
     ensure => 'present',
     kb     => 'KB3012199'
   }
@@ -20,9 +26,8 @@ Install specific update by KB number.
 Install specific update by KB number in a maintenance window.
 
 ```puppet
-  windows_updates::kb {'Some cool KB!':
+  windows_updates::kb {'KB3012199':
     ensure      => 'present',
-    kb          => 'KB3012199',
     maintwindow => 'patch_window'
   }
   schedule { 'patch_window':
