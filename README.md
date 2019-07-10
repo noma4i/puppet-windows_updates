@@ -13,7 +13,22 @@ Install specific update by KB number.
 ```puppet
   windows_updates::kb {'Some cool KB!':
     ensure => 'present',
-    kb => 'KB3012199'
+    kb     => 'KB3012199'
+  }
+````
+
+Install specific update by KB number in a maintenance window.
+
+```puppet
+  windows_updates::kb {'Some cool KB!':
+    ensure      => 'present',
+    kb          => 'KB3012199',
+    maintwindow => 'patch_window'
+  }
+  schedule { 'patch_window':
+    range   => '01:00 - 03:00',
+    weekday => 'Saturday',
+    repeat  => 1
   }
 ````
 
@@ -21,7 +36,7 @@ Install Updates by name or mask. Will install all updates matching `.Net*` mask
 
 ```puppet
   windows_updates::list {'.Net Updates':
-    ensure => 'present',
+    ensure    => 'present',
     name_mask => '.Net*'
   }
 ````
@@ -30,8 +45,8 @@ If you are not sure what updates go with name you set - use `dry_run` option and
 
 ```puppet
   windows_updates::list {'.Net Updates':
-    ensure => 'present',
-    dry_run => 'C:\\what_will_be_installed.txt'
+    ensure    => 'present',
+    dry_run   => 'C:\\what_will_be_installed.txt'
     name_mask => '.Net*'
   }
 ````
