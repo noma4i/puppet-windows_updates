@@ -12,7 +12,7 @@ define windows_updates::kb (
         creates   => "C:\\ProgramData\\InstalledUpdates\\${kb}.flg",
         provider  => 'powershell',
         timeout   => 5400,
-        logoutput => true
+        logoutput => true,
         schedule  => $maintwindow
       }
     }
