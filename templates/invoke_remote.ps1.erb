@@ -1,5 +1,20 @@
 Invoke-WUInstall -Script {
-  Import-Module "PSWindowsUpdate"
-  Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot | Out-File C:\PSWindowsUpdate.log
-  Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed"
+    Import-Module "PSWindowsUpdate"
+    Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot -ErrorAction SilentlyContinue | Out-File C:\PSWindowsUpdate.log
+    $update = Get-WUHistory | ? KB -eq <%= @kb %> | Sort-Object Date -Descending | Select-Object -First 1
+    switch ($update.Result) {
+        'Succeeded' { Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed" }
+        'SucceededWithErrors' {
+            $HResult = [Convert]::ToString($update.HResult, 16)
+            $Message = $all_error_codes["0x$HResult"]
+            Write-Output "Update <%= @kb %> was installed but reported: $Message"
+            Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed"
+        }
+        'Failed' {
+            $HResult = [Convert]::ToString($update.HResult, 16)
+            $Message = $all_error_codes["0x$HResult"]
+            Write-Output "Update <%= @kb %> failed to install, reporting: $Message"
+        }
+        '' { Write-Output "Update <%= @kb %> is not provided by the update server!"; Exit 5 }
+    }
 }

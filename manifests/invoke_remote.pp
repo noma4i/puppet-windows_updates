@@ -10,7 +10,7 @@ define windows_updates::invoke_remote (
         command  => template('windows_updates/invoke_remote.ps1.erb'),
         creates  => "C:\\ProgramData\\InstalledUpdates\\${kb}.flg",
         provider => 'powershell',
-        timeout  => 1800
+        timeout  => 0
       }
     }
     default: {
