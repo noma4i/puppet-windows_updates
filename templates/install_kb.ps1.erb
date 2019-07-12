@@ -253,7 +253,7 @@ $all_error_codes = @{
 }
 
 Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot -ErrorAction SilentlyContinue
-$update = (Get-WUHistory | ? KB -eq <%= @kb %> | Sort-Object Date -Descending)[0]
+$update = Get-WUHistory | ? KB -eq <%= @kb %> | Sort-Object Date -Descending | Select-Object -First 1
 switch ($update.Result) {
     'Succeeded'           { Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed" }
     'SucceededWithErrors' {
