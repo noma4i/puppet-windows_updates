@@ -4,14 +4,16 @@ Invoke-WUInstall -Script {
     $update = Get-WUHistory | ? KB -eq <%= @kb %> | Sort-Object Date -Descending | Select-Object -First 1
     switch ($update.Result) {
         'Succeeded' { Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed" }
-        'SucceededWithErrors' {
+        'SucceededWithErrors', 'InProgress' {
             $HResult = [Convert]::ToString($update.HResult, 16)
-            Write-Output "Update <%= @kb %> was installed but reported: $HResult"
+            Write-Output "Update <%= @kb %> was installed but reported (likely reboot needed): $HResult"
             Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed"
+            Exit 0
         }
         'Failed' {
             $HResult = [Convert]::ToString($update.HResult, 16)
             Write-Output "Update <%= @kb %> failed to install, reporting: $HResult"
+            Exit 2
         }
         '' { Write-Output "Update <%= @kb %> is not provided by the update server!"; Exit 5 }
     }
