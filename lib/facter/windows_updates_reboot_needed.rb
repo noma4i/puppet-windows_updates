@@ -10,6 +10,6 @@ Facter.add('updates_reboot_needed') do
         'windows_updates',
         'checkreboot.ps1',
       )
-      Facter::Util::Resolution.exec("#{powershell} -ExecutionPolicy Unrestricted -File #{script_file}")
+      Facter::Util::Resolution.exec("#{powershell} -ExecutionPolicy Unrestricted -File #{script_file}").to_s == "true"
     end
   end
