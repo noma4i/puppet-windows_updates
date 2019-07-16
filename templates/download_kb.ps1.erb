@@ -1,4 +1,4 @@
-Download-WindowsUpdate -KBArticleID "<%= @kb %>"
+Download-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll
 Start-Sleep 5
 if ( (Get-WindowsUpdate -KBArticleID "<%= @kb %>").IsDownloaded ) {
     Write-Output "Successfully downloaded update <%= @kb %>"
