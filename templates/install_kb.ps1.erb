@@ -4,9 +4,9 @@ $all_error_codes = Get-Content -raw -Path $LibDir | ConvertFrom-StringData
 
 Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot -ErrorAction SilentlyContinue
 $update = Get-WUHistory | ? KB -eq <%= @kb %> | Sort-Object Date -Descending | Select-Object -First 1
-switch ($update.Result) {
+switch -regex ($update.Result) {
     'Succeeded' { Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed" }
-    'SucceededWithErrors','InProgress' {
+    'SucceededWithErrors|InProgress' {
         $HResult = [Convert]::ToString($update.HResult, 16)
         $Message = $all_error_codes["0x$HResult"]
         Write-Output "Update <%= @kb %> was installed but reported (likely reboot needed): $Message"
