@@ -2,9 +2,9 @@ Invoke-WUInstall -Script {
     Import-Module "PSWindowsUpdate"
     Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot -ErrorAction SilentlyContinue | Out-File C:\PSWindowsUpdate.log
     $update = Get-WUHistory | ? KB -eq <%= @kb %> | Sort-Object Date -Descending | Select-Object -First 1
-    switch ($update.Result) {
+    switch -regex ($update.Result) {
         'Succeeded' { Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed" }
-        'SucceededWithErrors', 'InProgress' {
+        'SucceededWithErrors|InProgress' {
             $HResult = [Convert]::ToString($update.HResult, 16)
             Write-Output "Update <%= @kb %> was installed but reported (likely reboot needed): $HResult"
             Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed"
