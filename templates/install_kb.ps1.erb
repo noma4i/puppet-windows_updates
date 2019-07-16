@@ -1,8 +1,9 @@
+$ProgressPreference = 'SilentlyContinue'
 $LibDir = "$env:ProgramData\PuppetLabs\puppet\cache\lib\windows_updates"
 $LibDir += "\errorcodes.txt"
 $all_error_codes = Get-Content -raw -Path $LibDir | ConvertFrom-StringData
 
-Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot -ErrorAction SilentlyContinue
+[void](Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot)
 Start-Sleep 5
 $update = Get-WUHistory | ? KB -eq <%= @kb %> | Sort-Object Date -Descending | Select-Object -First 1
 switch -regex ($update.Result) {

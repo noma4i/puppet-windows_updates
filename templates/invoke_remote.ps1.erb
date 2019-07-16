@@ -1,6 +1,7 @@
 Invoke-WUInstall -Script {
     Import-Module "PSWindowsUpdate"
-    Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot -ErrorAction SilentlyContinue | Out-File C:\PSWindowsUpdate.log
+    $ProgressPreference = 'SilentlyContinue'
+    Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot | Out-File C:\PSWindowsUpdate.log
     Start-Sleep 5
     $update = Get-WUHistory | ? KB -eq <%= @kb %> | Sort-Object Date -Descending | Select-Object -First 1
     switch -regex ($update.Result) {
