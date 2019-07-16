@@ -20,5 +20,5 @@ switch -regex ($update.Result) {
         Write-Output "Update <%= @kb %> failed to install, reporting: $Message"
         Exit 2
     }
-    '' { Write-Output "Update <%= @kb %> is not provided by the update server!"; Exit 5 }
+    default { Write-Output "Update <%= @kb %> is not provided by the update server!"; Exit 5 }
 }
