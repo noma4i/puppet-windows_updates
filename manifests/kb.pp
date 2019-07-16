@@ -13,7 +13,7 @@ define windows_updates::kb (
           exec { "Install ${kb}":
             command   => template('windows_updates/install_kb.ps1.erb'),
             provider  => 'powershell',
-            timeout   => 0,
+            timeout   => 14400,
             logoutput => true,
             schedule  => $maintwindow
           }
@@ -24,7 +24,7 @@ define windows_updates::kb (
             command   => template('windows_updates/install_kb.ps1.erb'),
             creates   => "C:\\ProgramData\\InstalledUpdates\\${kb}.flg",
             provider  => 'powershell',
-            timeout   => 0,
+            timeout   => 14400,
             logoutput => true,
             schedule  => $maintwindow
           }

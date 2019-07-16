@@ -10,7 +10,7 @@ define windows_updates::download_kb (
         command   => template('windows_updates/download_kb.ps1.erb'),
         creates   => "C:\\ProgramData\\InstalledUpdates\\${kb}.dld",
         provider  => 'powershell',
-        timeout   => 0,
+        timeout   => 14400,
         logoutput => true
       }
     }
