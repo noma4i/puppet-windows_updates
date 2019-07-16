@@ -1,0 +1,10 @@
+Download-WindowsUpdate -KBArticleID "<%= @kb %>"
+Start-Sleep 5
+if ( (Get-WindowsUpdate -KBArticleID "<%= @kb %>").IsDownloaded ) {
+    Write-Output "Successfully downloaded update <%= @kb %>"
+    Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.dld" "Downloaded"
+    Exit 0
+} else {
+    Write-Error "Failed to download update <%= @kb %>! If you're using WSUS, check if the server is providing this update."
+    Exit 5
+}
