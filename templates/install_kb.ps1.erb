@@ -3,6 +3,7 @@ $LibDir += "\errorcodes.txt"
 $all_error_codes = Get-Content -raw -Path $LibDir | ConvertFrom-StringData
 
 Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot -ErrorAction SilentlyContinue
+Start-Sleep 15
 $update = Get-WUHistory | ? KB -eq <%= @kb %> | Sort-Object Date -Descending | Select-Object -First 1
 switch -regex ($update.Result) {
     'Succeeded' { Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed" }
