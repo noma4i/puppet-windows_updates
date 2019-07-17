@@ -13,7 +13,7 @@ if ( (Get-WindowsUpdate -KBArticleID "<%= @kb %>").IsDownloaded -eq $True ) {
         Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.dld" "Downloaded"
         Exit 0
     } else {
-        Write-Error "Failed to download update <%= @kb %>! If you're using WSUS, check if the server is providing this update."
+        Write-Output "Failed to download update <%= @kb %>! If you're using WSUS, check if the server is providing this update."
         Exit 5
     }
 }
