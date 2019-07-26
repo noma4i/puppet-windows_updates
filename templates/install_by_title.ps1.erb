@@ -1,1 +1,29 @@
-Get-WUInstall -Title "<%= @name_mask %>" -WhatIf -Verbose | foreach { if ((Test-Path "c:\ProgramData\InstalledUpdates\$($_.KB).flg") -eq $False){ Get-WUInstall -KBArticleID "$($_.KB)" -AcceptAll -AutoReboot; Set-Content "c:\ProgramData\InstalledUpdates\$($_.KB).flg" "Installed";}}
+$ProgressPreference = 'SilentlyContinue'
+$LibDir = "$env:ProgramData\PuppetLabs\puppet\cache\lib\windows_updates"
+$LibDir += "\errorcodes.txt"
+$all_error_codes = Get-Content -raw -Path $LibDir | ConvertFrom-StringData
+
+Get-WindowsUpdate -Title "<%= @name_mask %>" | foreach {
+    if ((Test-Path "c:\ProgramData\InstalledUpdates\$($_.KB).flg") -eq $False) {
+        [void](Install-WindowsUpdate -KBArticleID "$($_.KB)" -AcceptAll -IgnoreReboot)
+        Start-Sleep 5
+        $update = Get-WUHistory | ? KB -eq <%= @kb %> | Sort-Object Date -Descending | Select-Object -First 1
+        switch -regex ($update.Result) {
+            'Succeeded' { Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed" }
+            'SucceededWithErrors|InProgress' {
+                $HResult = [Convert]::ToString($update.HResult, 16)
+                $Message = $all_error_codes["0x$HResult"]
+                Write-Output "Update <%= @kb %> was installed but reported (likely reboot needed): $Message"
+                Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed"
+                Exit 0
+            }
+            'Failed' {
+                $HResult = [Convert]::ToString($update.HResult, 16)
+                $Message = $all_error_codes["0x$HResult"]
+                Write-Output "Update <%= @kb %> failed to install, reporting: $Message"
+                Exit 2
+            }
+            default { Write-Output "Update <%= @kb %> is not provided by the update server!"; Exit 5 }
+        }
+    }
+}

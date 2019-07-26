@@ -1,0 +1,14 @@
+{
+  "description": "Immediately installs a specific KB update",
+  "input_method": "powershell",
+  "parameters": {
+    "kb": {
+      "description": "The KB number of the patch you want to install (e.g. KB123456)",
+      "type": "Pattern[/^KB\\d+$/]"
+    },
+    "restart": {
+      "description": "Perform a restart after installing the patch",
+      "type": "Boolean"
+    }
+  }
+}

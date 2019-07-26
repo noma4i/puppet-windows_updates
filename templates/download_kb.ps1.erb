@@ -1,0 +1,19 @@
+$ProgressPreference = 'SilentlyContinue'
+if ( (Get-WindowsUpdate -KBArticleID "<%= @kb %>").IsDownloaded -eq $True ) {
+    Write-Output 'Update <%= @kb %> already downloaded, no need to download again'
+    Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.dld" "Downloaded"
+} elseif ( (Get-WindowsUpdate -KBArticleID "<%= @kb %>" -IsInstalled).IsInstalled -eq $True ) {
+    Write-Output 'Update <%= @kb %> already installed, no need to download again'
+    Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.dld" "Downloaded"
+} else {
+    [void](Download-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll)
+    Start-Sleep 5
+    if ( (Get-WindowsUpdate -KBArticleID "<%= @kb %>").IsDownloaded ) {
+        Write-Output "Successfully downloaded update <%= @kb %>"
+        Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.dld" "Downloaded"
+        Exit 0
+    } else {
+        Write-Output "Failed to download update <%= @kb %>! If you're using WSUS, check if the server is providing this update."
+        Exit 5
+    }
+}
