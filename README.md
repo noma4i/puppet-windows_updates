@@ -75,3 +75,5 @@ Install an update from within a WinRM remote session. Because wusa.exe cannot be
     kb => 'KB3012199'
   }
 ```
+
+Alternatively, you can use the the `windows_updates::install_kb` task, which auto-detects when it's running over WinRM and switches to task scheduling to still be able to install the update. For this to work inside of Puppet Enterprise, you need to be running at least PE 2019.0 or higher. If you're on an older version of PE and want to use this task, use Bolt instead.
