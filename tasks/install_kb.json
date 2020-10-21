@@ -1,6 +1,10 @@
 {
   "description": "Immediately installs a specific KB update",
   "input_method": "powershell",
+  "files": [
+    "windows_updates/files/",
+    "windows_updates/lib/windows_updates/errorcodes.txt"
+  ],
   "parameters": {
     "kb": {
       "description": "The KB number of the patch you want to install (e.g. KB123456)",

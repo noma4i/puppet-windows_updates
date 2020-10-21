@@ -3,7 +3,7 @@ Invoke-WUInstall -Script {
     $ProgressPreference = 'SilentlyContinue'
     Install-WindowsUpdate -KBArticleID "<%= @kb %>" -AcceptAll -IgnoreReboot | Out-File C:\PSWindowsUpdate.log
     Start-Sleep 5
-    $update = Get-WUHistory | ? KB -eq <%= @kb %> | Sort-Object Date -Descending | Select-Object -First 1
+    $update = Get-WUHistory -Last 500 | ? KB -eq <%= @kb %> | Sort-Object Date -Descending | Select-Object -First 1
     switch -regex ($update.Result) {
         'Succeeded' { Set-Content "C:\ProgramData\InstalledUpdates\<%= @kb %>.flg" "Installed" }
         'SucceededWithErrors|InProgress' {
